@@ -27,6 +27,11 @@ BuildRequires: pkgconfig(mpris-qt5)
 BuildRequires: pkgconfig(zlib)
 BuildRequires: boost-devel
 
+# >> macros
+%define		_binary_payload		w9.gzdio
+%define		_source_payload		w9.gzdio
+
+
 %define __provides_exclude mimehandler
 
 %global debug 0
@@ -51,7 +56,7 @@ for i, s in ipairs(patches) do \
     print(rpm.expand("%patch_if_needed "..(i - 1))) \
 end \
 }
-
+# << macros
 
 %description
 %{summary}
