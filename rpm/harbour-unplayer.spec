@@ -1,12 +1,12 @@
 Name:       harbour-unplayer
-Version:    2.1.1
+Version:    2.1.2
 Release:    1
 Summary:    Simple music player for Sailfish OS
 Group:      Applications/Music
 License:    GPLv3
-URL:        https://github.com/equeim/unplayer
+URL:        https://github.com/kan-ibal/harbour-unplayer/
 
-Source0:    https://github.com/equeim/unplayer/archive/%{version}.tar.gz
+Source0:    https://github.com/kan-ibal/harbour-unplayer/archive/%{version}.tar.gz
 Patch0:     qtmpris.patch
 Patch1:     taglib.patch
 

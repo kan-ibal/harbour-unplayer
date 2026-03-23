@@ -28,6 +28,7 @@ namespace unplayer
         enum class Extension
         {
             FLAC,
+            ALAC,
 
             AAC,
             M4A,
@@ -49,6 +50,7 @@ namespace unplayer
         enum class AudioCodec
         {
             FLAC,
+            ALAC,
             AAC,
             MP3,
             Vorbis,
@@ -58,7 +60,6 @@ namespace unplayer
             LPCM,
 
             // Unsupported
-            ALAC,
             AIFFC,
             Unknown
         };

@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.1.2] - 2026-03-23
+### Added
+- ALAC support
+
 ## [2.1.1] - 2021-05-20
 ### Added
 - 64-bit ARM support

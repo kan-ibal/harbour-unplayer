@@ -32,6 +32,7 @@ namespace unplayer
         namespace
         {
             const QLatin1String flacSuffix("flac");
+            const QLatin1String alacSuffix("alac");
             const QLatin1String aacSuffix("aac");
 
             const QLatin1String m4aSuffix("m4a");
@@ -64,6 +65,7 @@ namespace unplayer
         {
             static const std::unordered_map<QString, Extension> extensions{
                 {flacSuffix, Extension::FLAC},
+                {alacSuffix, Extension::ALAC},
                 {aacSuffix, Extension::AAC},
 
                 {m4aSuffix, Extension::M4A},
@@ -124,7 +126,6 @@ namespace unplayer
         bool isAudioCodecSupported(AudioCodec audioCodec)
         {
             switch (audioCodec) {
-            case AudioCodec::ALAC:
             case AudioCodec::AIFFC:
             case AudioCodec::Unknown:
                 return false;
@@ -138,6 +139,8 @@ namespace unplayer
             switch (audioCodec) {
             case AudioCodec::FLAC:
                 return QLatin1String("FLAC");
+            case AudioCodec::ALAC:
+                return QLatin1String("ALAC");
             case AudioCodec::AAC:
                 return QLatin1String("AAC");
             case AudioCodec::ALAC:
