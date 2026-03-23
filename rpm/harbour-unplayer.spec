@@ -7,7 +7,6 @@ License:    GPLv3
 URL:        https://github.com/kan-ibal/harbour-unplayer/
 
 Source0:    https://github.com/kan-ibal/harbour-unplayer/archive/%{version}.tar.gz
-Patch0:     qtmpris.patch
 Patch1:     taglib.patch
 
 Requires:      sailfishsilica-qt5
@@ -21,6 +20,9 @@ BuildRequires: pkgconfig(nemonotifications-qt5)
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 
+BuildRequires: pkgconfig(mpris-qt5)
+
+
 # TagLib dependencies
 BuildRequires: pkgconfig(zlib)
 BuildRequires: boost-devel
@@ -33,9 +35,6 @@ BuildRequires: boost-devel
 #%%global harbour OFF
 
 %global build_directory %{_builddir}/build-%{_target}-%(version | awk '{print $3}')
-
-%global qtmpris_source_directory %{_builddir}/3rdparty/qtmpris
-%global qtmpris_build_directory %{build_directory}/3rdparty/qtmpris
 
 %global taglib_source_directory %{_builddir}/3rdparty/taglib
 %global taglib_build_directory %{build_directory}/3rdparty/taglib
@@ -71,13 +70,6 @@ export PKG_CONFIG_PATH=%{thirdparty_install_directory}/lib/pkgconfig
     export CFLAGS="${CFLAGS:-%optflags} -O0 -Wp,-U_FORTIFY_SOURCE"
     export CXXFLAGS="${CXXFLAGS:-%optflags} -O0 -Wp,-U_FORTIFY_SOURCE"
 %endif
-
-mkdir -p %{qtmpris_build_directory}
-cd %{qtmpris_build_directory}
-%qmake5 %{qtmpris_source_directory} CONFIG+=staticlib QMAKE_CXXFLAGS+="-std=c++17" PREFIX=%{thirdparty_install_directory}
-%make_build
-# not make_install, because we do not want INSTALL_ROOT here
-make install
 
 mkdir -p %{taglib_build_directory}
 cd %{taglib_build_directory}

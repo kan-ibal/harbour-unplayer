@@ -143,8 +143,6 @@ namespace unplayer
                 return QLatin1String("ALAC");
             case AudioCodec::AAC:
                 return QLatin1String("AAC");
-            case AudioCodec::ALAC:
-                return QLatin1String("ALAC");
             case AudioCodec::MP3:
                 return QLatin1String("MP3");
             case AudioCodec::Vorbis:
