@@ -77,10 +77,8 @@ Page {
                 type: "contributor"
             ListElement {
                 name: "kan-ibal"
-                email: "kan-ibal@github.com"
+                email: "kan-ibal@users.noreply.github.com"
                 type: "contributor"
-                
-
             }
         }
     }
