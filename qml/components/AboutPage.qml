@@ -79,7 +79,17 @@ Page {
                 width: parent.width
                 font.pixelSize: Theme.fontSizeExtraSmall
                 text: "<style type=\"text/css\">A { color: %1; }</style>".arg(Theme.highlightColor) +
-                      "\u00a9 2015-2019 Alexey Rochev &lt;<a href=\"mailto:equeim@gmail.com\">equeim@gmail.com</a>&gt;" +
+                      "\u00a9 2015-2019 Alexey Rochev &lt;<a href=\"mailto:equeim@gmail.com\">equeim@gmail.com</a>&gt;"
+                textFormat: Text.RichText
+                truncationMode: TruncationMode.Fade
+                onLinkActivated: Qt.openUrlExternally(link)
+            }
+
+            Label {
+                horizontalAlignment: implicitWidth > width ? Text.AlignLeft : Text.AlignHCenter
+                width: parent.width
+                font.pixelSize: Theme.fontSizeExtraSmall
+                text: "<style type=\"text/css\">A { color: %1; }</style>".arg(Theme.highlightColor) +
                       "\u00a9 2026 kan-ibal &lt;<a href=\"mailto:kan-ibal@users.noreply.github.com\">kan-ibal@users.noreply.github.com</a>&gt;"
                 textFormat: Text.RichText
                 truncationMode: TruncationMode.Fade
