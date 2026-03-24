@@ -154,6 +154,24 @@ namespace unplayer
                         }
                         return processFile(filePath, std::move(file), audioCodec);
                     }
+                    case Extension::ALAC:
+                    {
+                        TagLib::MP4::File file(filePath.toUtf8());
+                        auto audioCodec = AudioCodec::Unknown;
+                        if (file.isValid()) {
+                            switch (file.audioProperties()->codec()) {
+                            case TagLib::MP4::Properties::AAC:
+                                audioCodec = fileutils::AudioCodec::AAC;
+                                break;
+                            case TagLib::MP4::Properties::ALAC:
+                                audioCodec = fileutils::AudioCodec::ALAC;
+                                break;
+                            case TagLib::MP4::Properties::Unknown:
+                                break;
+                            }
+                        }
+                        return processFile(filePath, std::move(file), audioCodec);
+                    }
                     case Extension::MP3:
                         return processFile(filePath, TagLib::MPEG::File(filePath.toUtf8()), AudioCodec::MP3);
                     case Extension::OGG:

@@ -1,6 +1,6 @@
 Name:       harbour-unplayer
 Version:    2.1.2
-Release:    1
+Release:    2
 Summary:    Simple music player for Sailfish OS
 Group:      Applications/Music
 License:    GPLv3

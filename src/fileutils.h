@@ -28,8 +28,8 @@ namespace unplayer
         enum class Extension
         {
             FLAC,
-            ALAC,
 
+            ALAC,
             AAC,
             M4A,
 

@@ -4,6 +4,7 @@
 ### Added
 - ALAC support
 - Switch to mainline mpris
+- Switch to mainline taglib
 
 ## [2.1.1] - 2021-05-20
 ### Added
