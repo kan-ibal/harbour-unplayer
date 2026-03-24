@@ -72,6 +72,7 @@ export PKG_CONFIG_PATH=%{thirdparty_install_directory}/lib/pkgconfig
     export CXXFLAGS="${CXXFLAGS:-%optflags} -O0 -Wp,-U_FORTIFY_SOURCE"
 %endif
 
+mkdir %{build_directory}
 cd %{build_directory}
 %cmake .. \
     -DHARBOUR=%{harbour} \
