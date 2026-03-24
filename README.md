@@ -13,7 +13,7 @@ git submodule update --init
 4. Build package:
 ```sh
 cd /path/to/sources
-sfdk config target=<target name, e.g.SailfishOS-4.6.0.13-aarch64> && sfdk build ./
+sfdk config target=<target name, e.g.SailfishOS-4.6.0.13-aarch64> && sfdk -p -d build ./
 ```
 5. Built RPMs will be in the `RPMS` directory.
 
