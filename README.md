@@ -4,7 +4,7 @@ Simple music player for Sailfish OS
 ## Building
 1. Clone repo:
 ```sh
-git clone https://github.com/equeim/unplayer
+git clone https://github.com/kan-ibal/harbour-unplayer
 cd unplayer
 git submodule update --init
 ```
@@ -13,7 +13,7 @@ git submodule update --init
 4. Build package:
 ```sh
 cd /path/to/sources
-sfdk -c no-fix-version -c target=<target name, e.g. SailfishOS-3.3.0.16-armv7hl> build -p -d -j<number of jobs>
+sfdk config target=<target name, e.g.SailfishOS-4.6.0.13-aarch64> && sfdk build ./
 ```
 5. Built RPMs will be in the `RPMS` directory.
 

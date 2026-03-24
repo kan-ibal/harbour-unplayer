@@ -75,6 +75,12 @@ Page {
                 name: "Rony Fadel"
                 email: "rony.fadel@gmail.com"
                 type: "contributor"
+            ListElement {
+                name: "kan-ibal"
+                email: "kan-ibal@github.com"
+                type: "contributor"
+                
+
             }
         }
     }

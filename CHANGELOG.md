@@ -3,6 +3,7 @@
 ## [2.1.2] - 2026-03-23
 ### Added
 - ALAC support
+- Switch to mainline mpris
 
 ## [2.1.1] - 2021-05-20
 ### Added

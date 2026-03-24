@@ -7,7 +7,6 @@ License:    GPLv3
 URL:        https://github.com/kan-ibal/harbour-unplayer/
 
 Source0:    https://github.com/kan-ibal/harbour-unplayer/archive/%{version}.tar.gz
-Patch1:     taglib.patch
 
 Requires:      sailfishsilica-qt5
 BuildRequires: pkgconfig(Qt5Concurrent)
@@ -21,7 +20,7 @@ BuildRequires: cmake
 BuildRequires: desktop-file-utils
 
 BuildRequires: pkgconfig(mpris-qt5)
-
+BuildRequires: pkgconfig(taglib)
 
 # TagLib dependencies
 BuildRequires: pkgconfig(zlib)
@@ -40,9 +39,6 @@ BuildRequires: boost-devel
 #%%global harbour OFF
 
 %global build_directory %{_builddir}/build-%{_target}-%(version | awk '{print $3}')
-
-%global taglib_source_directory %{_builddir}/3rdparty/taglib
-%global taglib_build_directory %{build_directory}/3rdparty/taglib
 
 %global thirdparty_install_directory %{build_directory}/3rdparty/install
 
@@ -76,18 +72,6 @@ export PKG_CONFIG_PATH=%{thirdparty_install_directory}/lib/pkgconfig
     export CXXFLAGS="${CXXFLAGS:-%optflags} -O0 -Wp,-U_FORTIFY_SOURCE"
 %endif
 
-mkdir -p %{taglib_build_directory}
-cd %{taglib_build_directory}
-CFLAGS="$CFLAGS -fPIC" CXXFLAGS="$CXXFLAGS -fPIC" %cmake %{taglib_source_directory} \
-    -DCMAKE_INSTALL_PREFIX=%{thirdparty_install_directory} \
-    -DLIB_INSTALL_DIR=%{thirdparty_install_directory}/lib \
-    -DINCLUDE_INSTALL_DIR=%{thirdparty_install_directory}/include \
-    -DBUILD_SHARED_LIBS=OFF \
-    -DWITH_MP4=ON
-%make_build
-# not make_install, because we do not want DESTDIR here
-make install
-
 cd %{build_directory}
 %cmake .. \
     -DHARBOUR=%{harbour} \
@@ -99,7 +83,6 @@ cd %{build_directory}
 cd %{build_directory}
 %make_install
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
-
 
 %files
 %{_bindir}/%{name}
