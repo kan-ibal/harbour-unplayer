@@ -1,6 +1,9 @@
 # Changelog
 
-## [2.1.2] - 2026-03-23
+## [2.1.2-3] - 2026-06-22
+- build for SFOS 5.1
+
+## [2.1.2-2] - 2026-03-23
 ### Added
 - ALAC support
 - Switch to mainline mpris

@@ -1,6 +1,6 @@
 Name:       harbour-unplayer
 Version:    2.1.2
-Release:    2
+Release:    3
 Summary:    Simple music player for Sailfish OS
 Group:      Applications/Music
 License:    GPLv3
@@ -8,6 +8,7 @@ URL:        https://github.com/kan-ibal/harbour-unplayer/
 
 Source0:    https://github.com/kan-ibal/harbour-unplayer/archive/%{version}.tar.gz
 
+Requires:      sailfish-version >= 5.1
 Requires:      sailfishsilica-qt5
 BuildRequires: pkgconfig(Qt5Concurrent)
 BuildRequires: pkgconfig(Qt5DBus)
