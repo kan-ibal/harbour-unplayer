@@ -6,7 +6,7 @@ Group:      Applications/Music
 License:    GPLv3
 URL:        https://github.com/kan-ibal/harbour-unplayer/
 
-Source0:    https://github.com/kan-ibal/harbour-unplayer/archive/%{version}.tar.gz
+Source0:    %{name}-%{version}.tar.gz
 
 Requires:      sailfish-version >= 5.1
 Requires:      sailfishsilica-qt5
@@ -75,7 +75,7 @@ export PKG_CONFIG_PATH=%{thirdparty_install_directory}/lib/pkgconfig
 %endif
 
 cd %{build_directory}
-%cmake .. \
+%cmake ../%{name}-%{version} \
     -DHARBOUR=%{harbour} \
     -DQTMPRIS_STATIC=ON \
     -DTAGLIB_STATIC=ON
