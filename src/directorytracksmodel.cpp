@@ -36,6 +36,27 @@
 
 namespace unplayer
 {
+    namespace
+    {
+        void collectDirectoryFiles(const QString& directory, bool showVideoFiles, QStringList& files)
+        {
+            const QFileInfoList fileInfos(QDir(directory).entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot | QDir::Files | QDir::Readable));
+            for (const QFileInfo& info : fileInfos) {
+                if (info.isDir()) {
+                    collectDirectoryFiles(info.filePath(), showVideoFiles, files);
+                } else {
+                    const QString suffix(info.suffix());
+                    const bool isPlaylist = PlaylistUtils::isPlaylistExtension(suffix);
+                    if (isPlaylist ||
+                            fileutils::isExtensionSupported(suffix) ||
+                            (showVideoFiles && fileutils::isVideoExtensionSupported(suffix))) {
+                        files.push_back(info.filePath());
+                    }
+                }
+            }
+        }
+    }
+
     void DirectoryTracksModel::classBegin()
     {
     }
@@ -270,27 +291,24 @@ namespace unplayer
     QStringList DirectoryTracksProxyModel::getSelectedTracks() const
     {
         const std::vector<int> indexes(selectedSourceIndexes());
+        const auto& files = static_cast<const DirectoryTracksModel*>(sourceModel())->files();
+        const bool showVideoFiles = Settings::instance()->showVideoFiles();
         QStringList tracks;
-        tracks.reserve(static_cast<int>(indexes.size()));
-        auto model = static_cast<const DirectoryTracksModel*>(sourceModel());
         for (int index : indexes) {
-            tracks.push_back(model->getTrack(index));
+            const DirectoryTrackFile& file = files[static_cast<size_t>(index)];
+            if (file.isDirectory) {
+                collectDirectoryFiles(file.filePath, showVideoFiles, tracks);
+            } else {
+                tracks.push_back(file.filePath);
+            }
         }
         return tracks;
     }
 
     void DirectoryTracksProxyModel::selectAll()
     {
-        const std::vector<DirectoryTrackFile>& files = static_cast<const DirectoryTracksModel*>(sourceModel())->files();
-        int firstFileIndex = -1;
-        for (int i = 0, max = rowCount(); i < max; ++i) {
-            if (!files[static_cast<size_t>(sourceIndex(i))].isDirectory) {
-                firstFileIndex = i;
-                break;
-            }
-        }
-        if (firstFileIndex != -1) {
-            selectionModel()->select(QItemSelection(index(firstFileIndex, 0), index(rowCount() - 1, 0)), QItemSelectionModel::Select);
+        if (rowCount() > 0) {
+            selectionModel()->select(QItemSelection(index(0, 0), index(rowCount() - 1, 0)), QItemSelectionModel::Select);
         }
     }
 }
