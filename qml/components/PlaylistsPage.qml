@@ -39,10 +39,29 @@ Page {
         PushUpMenu {
             MenuItem {
                 enabled: playlistsProxyModel.hasSelection
+                text: qsTranslate("unplayer", "Play")
+                onClicked: {
+                    Unplayer.Player.queue.addTracksFromUrls(playlistsModel.getTracksForPlaylists(playlistsProxyModel.selectedSourceIndexes), true)
+                    selectionPanel.showPanel = false
+                }
+            }
+
+            MenuItem {
+                enabled: playlistsProxyModel.hasSelection
+                text: qsTranslate("unplayer", "Shuffle play")
+                onClicked: {
+                    var tracks = playlistsModel.getTracksForPlaylists(playlistsProxyModel.selectedSourceIndexes)
+                    Unplayer.Player.queue.shuffle = true
+                    Unplayer.Player.queue.addTracksFromUrls(tracks, true, Math.floor(Math.random() * tracks.length))
+                    selectionPanel.showPanel = false
+                }
+            }
+
+            MenuItem {
+                enabled: playlistsProxyModel.hasSelection
                 text: qsTranslate("unplayer", "Add to queue")
                 onClicked: {
-                    Unplayer.PlaylistUtils.newPlaylistFromFilesystem("666", playlistsModel.getTracksForPlaylists(playlistsProxyModel.selectedSourceIndexes))
-                    //Unplayer.Player.queue.addTracksFromUrls(playlistsModel.getTracksForPlaylists(playlistsProxyModel.selectedSourceIndexes))
+                    Unplayer.Player.queue.addTracksFromUrls(playlistsModel.getTracksForPlaylists(playlistsProxyModel.selectedSourceIndexes))
                     selectionPanel.showPanel = false
                 }
             }

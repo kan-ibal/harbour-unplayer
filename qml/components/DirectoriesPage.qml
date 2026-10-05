@@ -34,14 +34,25 @@ Page {
 
     SelectionPanel {
         id: selectionPanel
-        selectionText: qsTranslate("unplayer", "%n file(s) selected", String(), directoryTracksProxyModel.selectedIndexesCount)
+        selectionText: qsTranslate("unplayer", "%n item(s) selected", String(), directoryTracksProxyModel.selectedIndexesCount)
 
         PushUpMenu {
             MenuItem {
                 enabled: directoryTracksProxyModel.hasSelection
-                text: qsTranslate("unplayer", "Replace queue")
+                text: qsTranslate("unplayer", "Play")
                 onClicked: {
                     Unplayer.Player.queue.addTracksFromUrls(directoryTracksProxyModel.getSelectedTracks(), true)
+                    selectionPanel.showPanel = false
+                }
+            }
+
+            MenuItem {
+                enabled: directoryTracksProxyModel.hasSelection
+                text: qsTranslate("unplayer", "Shuffle play")
+                onClicked: {
+                    var tracks = directoryTracksProxyModel.getSelectedTracks()
+                    Unplayer.Player.queue.shuffle = true
+                    Unplayer.Player.queue.addTracksFromUrls(tracks, true, Math.floor(Math.random() * tracks.length))
                     selectionPanel.showPanel = false
                 }
             }
@@ -77,13 +88,13 @@ Page {
             MenuItem {
                 enabled: directoryTracksProxyModel.hasSelection
                 text: qsTranslate("unplayer", "Edit tags")
-                onClicked: pageStack.push("TagEditDialog.qml", {files: directoryTracksProxyModel.getSelectedTracks()})
+                onClicked: pageStack.push("TagEditDialog.qml", {files: directoryTracksModel.getTracks(directoryTracksProxyModel.selectedSourceIndexes)})
             }
 
             MenuItem {
                 enabled: directoryTracksProxyModel.hasSelection
                 text: qsTranslate("unplayer", "Remove")
-                onClicked: remorsePopup.execute(qsTranslate("unplayer", "Removing %n files", String(), directoryTracksProxyModel.selectedIndexesCount), function() {
+                onClicked: remorsePopup.execute(qsTranslate("unplayer", "Removing %n item(s)", String(), directoryTracksProxyModel.selectedIndexesCount), function() {
                     directoryTracksModel.removeTracks(directoryTracksProxyModel.selectedSourceIndexes)
                 })
             }
@@ -193,9 +204,7 @@ Page {
 
             onClicked: {
                 if (selectionPanel.showPanel) {
-                    if (!model.isDirectory) {
-                        directoryTracksProxyModel.select(model.index)
-                    }
+                    directoryTracksProxyModel.select(model.index)
                 } else {
                     if (model.isDirectory) {
                         searchPanel.open = false
@@ -322,8 +331,8 @@ Page {
             }
 
             SelectionMenuItem {
-                enabled: directoryTracksProxyModel.tracksCount || (searchPanel.searchText && directoryTracksProxyModel.tracksCount)
-                text: qsTranslate("unplayer", "Select files")
+                enabled: directoryTracksProxyModel.tracksCount || directoryTracksProxyModel.directoriesCount
+                text: qsTranslate("unplayer", "Select files and directories")
             }
 
             SearchMenuItem { }
