@@ -35,9 +35,20 @@ Page {
         PushUpMenu {
             MenuItem {
                 enabled: genresProxyModel.hasSelection
-                text: qsTranslate("unplayer", "Replace queue")
+                text: qsTranslate("unplayer", "Play")
                 onClicked: {
                     Unplayer.Player.queue.addTracksFromLibrary(genresModel.getTracksForGenres(genresProxyModel.selectedSourceIndexes), true)
+                    selectionPanel.showPanel = false
+                }
+            }
+
+            MenuItem {
+                enabled: genresProxyModel.hasSelection
+                text: qsTranslate("unplayer", "Shuffle play")
+                onClicked: {
+                    var tracks = genresModel.getTracksForGenres(genresProxyModel.selectedSourceIndexes)
+                    Unplayer.Player.queue.shuffle = true
+                    Unplayer.Player.queue.addTracksFromLibrary(tracks, true, Math.floor(Math.random() * tracks.length))
                     selectionPanel.showPanel = false
                 }
             }

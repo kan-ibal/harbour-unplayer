@@ -39,9 +39,20 @@ Page {
         PushUpMenu {
             MenuItem {
                 enabled: directoryTracksProxyModel.hasSelection
-                text: qsTranslate("unplayer", "Replace queue")
+                text: qsTranslate("unplayer", "Play")
                 onClicked: {
                     Unplayer.Player.queue.addTracksFromUrls(directoryTracksProxyModel.getSelectedTracks(), true)
+                    selectionPanel.showPanel = false
+                }
+            }
+
+            MenuItem {
+                enabled: directoryTracksProxyModel.hasSelection
+                text: qsTranslate("unplayer", "Shuffle play")
+                onClicked: {
+                    var tracks = directoryTracksProxyModel.getSelectedTracks()
+                    Unplayer.Player.queue.shuffle = true
+                    Unplayer.Player.queue.addTracksFromUrls(tracks, true, Math.floor(Math.random() * tracks.length))
                     selectionPanel.showPanel = false
                 }
             }
