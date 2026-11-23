@@ -2,6 +2,7 @@ find_package(Qt5LinguistTools CONFIG REQUIRED)
 
 qt5_add_translation(qm_files
     harbour-unplayer-ar.ts
+    harbour-unplayer-cs.ts
     harbour-unplayer-de.ts
     harbour-unplayer-en.ts
     harbour-unplayer-es.ts
